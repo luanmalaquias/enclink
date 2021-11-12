@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block body %}
+<body>
+    <div class="container">
+        <!--Login/cadastrar-se-->
+        <div class="row m-2">
+            <div class="col-12 d-flex justify-content-end">
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    {% if user %}
+                        <a class="btn btn-outline-primary btn-sm" href="{% url 'logs' %}">Historico</a>
+                        <a class="btn btn-outline-primary btn-sm" href="{% url 'logout' %}">Sair</a>
+                    {% else %}
+                        <a class="btn btn-outline-primary btn-sm" href="{% url 'enclink-user' %}">Login</a>                  
+                        <a class="btn btn-primary btn-sm" href="{% url 'enclink-user' %}">Cadastrar-se</a>
+                    {% endif %}                    
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-5 pt-5 pb-5 shadow-lg">
+            <div class="row">
+                <div class="col d-flex justify-content-center">
+                    <h1>Encurta Link</h1>
+                </div>
+            </div>
+
+            <form method="POST">
+                {% csrf_token %}
+                <div class="row d-flex justify-content-center mt-5">
+                    <div class="col-12 col-lg-8 d-flex justify-content-center">
+                        <div class="input-group mb-3">
+                            <input type="url" class="form-control" placeholder="Digite a url" name="urlOriginal">
+                            <button class="btn btn-outline-primary" type="submit">Encurtar</button>
+                        </div>
+                    </div>                
+                </div>
+            </form>            
+
+            <div class="row d-flex text-center">
+                <a href="http://{{ urlenc }}">{{ urlenc }}</a>
+            </div>
+        </div>
+    </div>
+</body>
+{% endblock %}

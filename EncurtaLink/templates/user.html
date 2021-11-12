@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block body %}
+
+<body>
+    <div class="content p-5">
+        <div class="row text-center">
+            <div class="col-12 col-lg-6">
+                <!--Login-->
+                <h2>Login</h2>
+                <form method="POST" autocomplete="off">
+                    {% csrf_token %}
+                    <div class="row d-flex justify-content-center">
+                        <div class="col-12 col-lg-5 mt-3 mt-lg-3">
+                            <input type="text" class="form-control" placeholder="Usuario" name="user">
+                        </div>
+                    </div>
+                    <div class="row d-flex justify-content-center">
+                        <div class="col-12 col-lg-5 mt-3">
+                            <input type="password" class="form-control" placeholder="Senha" name="password">
+                        </div>
+                    </div>
+                    <button type="submit" name="type" value="login" class="btn btn-primary btn-sm mt-lg-3">Entrar</button>
+                </form>
+            </div>
+            <div class="col-12 col-lg-6 mt-sm-5 mt-lg-0">
+                <!--Cadastrar-se-->
+                <h2>Cadastrar-se</h2>
+                <form method="POST" autocomplete="off">
+                    {% csrf_token %}
+                    <div class="row d-flex justify-content-center">
+                        <div class="col-12 col-lg-5 mt-3">
+                            <input type="text" class="form-control" placeholder="Usuario" name="user-sign" autocomplete="off">
+                        </div>
+                    </div>
+                    <div class="row d-flex justify-content-center">
+                        <div class="col-12 col-lg-5 mt-3">
+                            <input type="password" class="form-control" placeholder="Senha" name="password1-sign" autocomplete="off">
+                        </div>
+                    </div>
+                    <div class="row d-flex justify-content-center">
+                        <div class="col-12 col-lg-5 mt-3">
+                            <input type="password" class="form-control" placeholder="Repita a senha" name="password2-sign">
+                        </div>
+                    </div>
+                    <button type="submit" name="type" value="sign" class="btn btn-primary btn-sm mt-lg-3">Cadastrar</button>
+                </form>
+                <p class="mt-3">{{ messageSignUp }}</p>
+            </div>
+        </div>
+    </div>
+</body>
+
+{% endblock %}

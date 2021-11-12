@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block body %}
+
+<body>
+    <div class="container">
+
+        <a href="{% url 'home' %}">
+            <button class="btn btn-link">Home</button>
+        </a>
+
+        <table class="table table-hover">
+            <tr>
+                <th>Url encurtada</th>
+                <th>Url original</th>
+                <th>Data</th>
+                <th>Excluir</th>
+            </tr>
+            {% for log in logs %}
+            <tr>
+                <td>
+                    <a href="https://enclink.herokuapp.com/r/{{log.urlEncurtada}}">enclink.herokuapp.com/r/{{log.urlEncurtada}}</a>
+                </td>
+
+                <td>
+                    <a href="{{log.urlOriginal}}">{{log.urlOriginal}}</a>
+                </td>
+                
+                <td>
+                    {{log.data | date:"d/m/y"}}
+                </td>
+
+                <td>
+                    <a href="{% url 'deletar' log.urlEncurtada %}">
+                        <i class="bi bi-trash"></i>
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</body>
+
+{% endblock %}

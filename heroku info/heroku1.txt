@@ -1,0 +1,57 @@
+pip install django-heroku
+pip install gunicorn
+git init
+heroku git:remote -a [nomeDaAplicaçãoQueEstaNoHeroku]
+
+criar arquivo Procfile
+    web: gunicorn core.wsgi
+
+[EM SETTINGS.PY]
+import django_heroku
+adicionar em middleware = 'whitenoise.middleware.WhiteNoiseMiddleware'
+# final do arquivo
+Allowedhosts = [ [linkdaaplicação ou asterisco *] ]
+django_heroku.settings(locals())
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_URL = '/static/'
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+[CMD]
+pip freeze -> requirements.txt
+git status
+git add .
+git commit -m 'v1'
+git push -u heroku master
+
+[FAZER AS MIGRAÇÕES NO HEROKU]
+heroku pg:reset DATABASE_URL => tem que deletar o banco toda vez pra fazer uma migração nova
+heroku run python manage.py makemigrations
+heroku run python manage.py migrate
+heroku run python manage.py createsuperuser "luanadmin" "luanadmin"
+
+[NAVEGAR NOS ARQUIVOS]
+heroku run bash -a APPNAME
+
+[RESETAR BANCO]
+heroku pg:reset DATABASE_URL
+
+1. (add/modify some someapp/models.py)
+2. python manage.py makemigrations someapp
+3. python manage.py migrate
+4. git add someapp/migrations/*.py (to add the new migration file)
+5. git commit -m "added migration for app someapp"
+6. git push heroku
+7. heroku run python manage.py migrate
+
+[Colocando tesseract]
+heroku buildpacks:add --index 1 https://github.com/heroku/heroku-buildpack-apt
+heroku config:set TESSDATA_PREFIX=/app/.apt/usr/share/tesseract-ocr/tessdata
+
+[Aumentar o timeout das requisições]
+heroku config:set RACK_TIMEOUT=180
+
+[Aumentar o numero de processadores]
+heroku config:set WEB_CONCURRENCY=3

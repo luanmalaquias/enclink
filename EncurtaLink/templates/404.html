@@ -1,0 +1,24 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}404!{% endblock %}</title>
+    <link rel="icon" href="http://simpleicon.com/wp-content/uploads/link-2.png">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            text-align: center;
+            overflow: hidden;
+        }
+    </style>
+</head>
+
+<body>
+    <p>Ops!</p>
+    <p>Parece que essa página não existe.</p>
+    <a href="{% url 'home' %}">Voltar</a>
+</body>
+
+</html>

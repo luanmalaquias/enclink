@@ -1,0 +1,46 @@
+criar venv
+criar gitignore
+instalar django
+instalar django-heroku
+instalar gunicorn
+startproject
+startapp
+
+heroku git:remote -a [nomeDaAplicaçãoQueEstaNoHeroku]
+
+criar arquivo Procfile
+    web: gunicorn core.wsgi
+
+em settings.py
+import django_heroku
+Allowedhosts = [ [linkdaaplicação ou asterisco *] ]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_URL = '/static/'
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+django_heroku.settings(locals())
+
+pip freeze > requirements.txt
+makemigrations / migrate
+
+git status
+git add .
+git commit -m ['taltal']
+git push -u heroku master
+
+heroku run python manage.py makemigrations
+heroku run python manage.py migrate
+heroku run python manage.py createsuperuser
+
+adicionar em middleware = 'whitenoise.middleware.WhiteNoiseMiddleware'
+
+[Sincronização dos bancos]
+python manage.py dumpdata --exclude contenttypes > data.json
+push pro heroku
+faz as migrações pro heroku
+heroku run python manage.py loaddata data.json
+
+[página 404]
+é necessário rodar o comando manage.py collectstatic

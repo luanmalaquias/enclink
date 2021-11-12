@@ -1,0 +1,12 @@
+td{
+    max-width: 100px !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+}
+
+@media (max-width: 1000px){
+    th,td a, td{
+        font-size: 60px !important;
+    }
+}
